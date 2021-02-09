@@ -1,7 +1,7 @@
 def init_yolov4():
     # Clonar repositorio de github de YOLO
     if not os.path.exists('darknet'):
-    !git clone https://github.com/AlexeyAB/darknet
+        !git clone https://github.com/AlexeyAB/darknet
     # change makefile to have GPU and OPENCV enabled
     %cd darknet
     # Habilitar GPU y OPENCV en Makefile
