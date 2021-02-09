@@ -129,12 +129,12 @@ args = parser.parse_args()
 
 
 
-def test_ocr(array_crops):
+def test_ocr(array_crops, DIR_PB = "text_recognition_5435.pb"):
     tf_config = \
         tf.compat.v1.ConfigProto(gpu_options=tf.compat.v1.GPUOptions(allow_growth=True),
                                  allow_soft_placement=True)
 
-    model = TextRecognition(args.pb_path, cfg.seq_len + 1, config=tf_config)
+    model = TextRecognition(DIR_PB, cfg.seq_len + 1, config=tf_config)
     array_text_ocr = []
     for image in array_crops:
         #img_path = os.path.join(args.img_folder, filename)

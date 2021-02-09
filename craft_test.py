@@ -140,14 +140,14 @@ def test_craft(objetos):
     print("elapsed time : {}s".format(time.time() - t))
     return imgs_text_obj
 
-def test_craft_prueba(ruta):   
+def test_craft_prueba(ruta, DIR_PTH = "craft_mlt_25k.pth"):   
     net = CRAFT()     # initialize
-    print('Loading weights from checkpoint (' + args.trained_model + ')')
+    print('Loading weights from checkpoint (' + DIR_PTH + ')')
     
     if args.cuda:
-        net.load_state_dict(copyStateDict(torch.load(args.trained_model)))
+        net.load_state_dict(copyStateDict(torch.load(DIR_PTH)))
     else:
-        net.load_state_dict(copyStateDict(torch.load(args.trained_model, map_location='cpu')))
+        net.load_state_dict(copyStateDict(torch.load(DIR_PTH, map_location='cpu')))
     if args.cuda:
         net = net.cuda()
         net = torch.nn.DataParallel(net)
