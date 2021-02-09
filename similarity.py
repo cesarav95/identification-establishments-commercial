@@ -120,7 +120,7 @@ def convertir_indices_pred_a_bb(array_similares, array_bb, tipo='TEST'):
   return resultados
 
 #Agrupa detecciones, en base a la similitud de las regiones de imagenes detectadas
-def agrupar_objetos_similares(predicciones_yolo,metadatos, DIR_PTH_SIMILARIDAD,tipoconsulta='TEST'):
+def agrupar_objetos_similares(predicciones_yolo,metadatos, dir_pth_sim,tipoconsulta='TEST'):
   print("Agrupando objetos similares")
   predicciones_con_objetos = []
   bb_por_imagen = {}
@@ -135,7 +135,7 @@ def agrupar_objetos_similares(predicciones_yolo,metadatos, DIR_PTH_SIMILARIDAD,t
   print("Cantidad imagenes sin objetos", imagenes_sin_objetos)
   print("Cantidad total de imagenes", len(predicciones_yolo))
   #cargar modelo
-  modelo_sim =  cargar_modelo_similaridad(DIR_PTH_SIMILARIDAD)
+  modelo_sim =  cargar_modelo_similaridad(dir_pth_sim)
   array_objetos = []
   for i in range(len(predicciones_con_objetos) - 1):
     # Recuperar bbs
