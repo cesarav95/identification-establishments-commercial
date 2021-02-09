@@ -1,0 +1,5 @@
+classes = 1
+train  = dataset/train.txt
+valid  = dataset/test.txt
+names = config/obj.names
+backup = backup/
