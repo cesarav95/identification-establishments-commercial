@@ -101,14 +101,14 @@ parser.add_argument('--refiner_model', default='weights/craft_refiner_CTW1500.pt
 parser.add_argument("-f", "--fff", help="a dummy argument to fool ipython", default="1")
 args = parser.parse_args()
 
-def test_craft(objetos, DIR_PTH = "craft_mlt_25k.pth"):   
+def test_craft(objetos, dir_pth = "craft_mlt_25k.pth"):   
     net = CRAFT()     # initialize
-    print('Loading weights from checkpoint (' + args.trained_model + ')')
+    print('Loading weights from checkpoint (' + dir_pth + ')')
     
     if args.cuda:
-        net.load_state_dict(copyStateDict(torch.load(args.trained_model)))
+        net.load_state_dict(copyStateDict(torch.load(dir_pth)))
     else:
-        net.load_state_dict(copyStateDict(torch.load(args.trained_model, map_location='cpu')))
+        net.load_state_dict(copyStateDict(torch.load(dir_pth, map_location='cpu')))
     if args.cuda:
         net = net.cuda()
         net = torch.nn.DataParallel(net)
