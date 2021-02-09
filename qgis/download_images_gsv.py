@@ -26,7 +26,7 @@ import time
 #URL_BASE_IMAGEN_GSV = "https://www.google.com/maps/@?api=1&map_action=pano&"
 URL_BASE_IMAGE = "https://maps.googleapis.com/maps/api/streetview"
 URL_BASE_METADATA = "https://maps.googleapis.com/maps/api/streetview/metadata"
-API_KEY = "AIzaSyCJtozbBgPDkBrncfHxZ9nhGhurgGy7lhI"
+API_KEY = "YOUR API KEY"
 nombre_carpeta_salida = "C:/Users/Cesar/Documents/data_test_gsv/output"
 usar_heading = True
 #MAPA OSM
