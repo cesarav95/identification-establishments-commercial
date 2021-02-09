@@ -9,7 +9,7 @@ from skimage import io
 import cv2
 
 def loadImage(img):
-    print("CARGANDO IMAGEN")
+    #print("CARGANDO IMAGEN")
     #img = io.imread(img_file)           # RGB order
     if img.shape[0] == 2: img = img[0]
     if len(img.shape) == 2 : img = cv2.cvtColor(img, cv2.COLOR_GRAY2RGB)
