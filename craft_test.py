@@ -101,7 +101,7 @@ parser.add_argument('--refiner_model', default='weights/craft_refiner_CTW1500.pt
 parser.add_argument("-f", "--fff", help="a dummy argument to fool ipython", default="1")
 args = parser.parse_args()
 
-def test_craft(objetos):   
+def test_craft(objetos, DIR_PTH = "craft_mlt_25k.pth"):   
     net = CRAFT()     # initialize
     print('Loading weights from checkpoint (' + args.trained_model + ')')
     
