@@ -16,12 +16,12 @@ IMG_INPUT_HEIGTH = 640
 
 #Funcion para generar un archivo txt de entrada para yolov4
 # el cual contiene las rutas de las imagenes de entrada
-def leer_carpeta_imagenes(path):
+def leer_carpeta_imagenes(path, output_txt_file):
   list_imgs = []
   list_files = os.listdir(path)# obtener lista de nombres archivos del directorio path
-  if os.path.exists("input.txt"):
-    os.remove("input.txt")
-  file_input = open("input.txt", "w")
+  if os.path.exists(output_txt_file):
+    os.remove(output_txt_file)
+  file_input = open(output_txt_file, "w")
   for dir in list_files:
     if '.jpg' in dir or '.png' in dir:
       path_file = path + "/" + dir
