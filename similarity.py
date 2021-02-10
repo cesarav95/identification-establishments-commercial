@@ -176,13 +176,7 @@ def agrupar_objetos_similares(predicciones_yolo,metadatos, dir_pth_sim,tipoconsu
             if similaridad >= THRESH_SIMILARIDAD:
               mostrar_imagenes_similares(img_crop1, img_crop2, similaridad)
               print("Similaridad NO entre {} y {} en {}  con distancia {} metros%".format(path_img1,path_img2,similaridad*100,distancia_imgs ))
-            else:
-              if distancia_imgs <= THRESH_DIST_ENTRE_IMGS:
-                print("NO EXISTE SIMILRIDAD: ",distancia_imgs)
-              else:
-                print("MUY ALEJADOS: {} - {} ".format(path_img1,path_img2))
-
-          
+                      
         if i == (len(predicciones_con_objetos) - 2): #Guardar los objetos detectados de la ultima imagen
           #print("ultimo index: ",i)
           array_objetos.append([id_obj2])
