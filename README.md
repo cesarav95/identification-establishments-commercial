@@ -23,4 +23,4 @@ Se utilizo el sistema de información geográfico QGIS para el procesamiento de 
 * Al correr el código en QGIS (desde e editor de código de QGIS) se genera una carpeta de salida llamada por defecto `output` definido en parámetro `nombre_carpeta_salida`. En este carpeta se guardan las imágenes descargas y un archivo CSV con los metadatos de cada imagen como su ubicación geográfica, parámetros fov , heading, vetor unitario del segmento de línea de la calle y la url del api generado para la descarga.
 
 Para poder ver nuestro codigo, abrir el cuaderno en colab.
-[![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/drive/1JaeBU1IwkXKgi0cJCzJcy4El6NQwqZbV#scrollTo=TKOah5DBS_xM]
+[![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/drive/1JaeBU1IwkXKgi0cJCzJcy4El6NQwqZbV?usp=sharing)
