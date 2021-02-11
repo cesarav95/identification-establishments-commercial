@@ -220,9 +220,9 @@ def mostrar_clases_objetos(objetos):
     mostrar_clasificacion(img,prob,top_class, id_obj) 
 
 
-def clasificar_objetos_detectados(objetos, DIR_PTH_CLASIFICACION,DIR_DICCIONARIO):
-  model = cargar_modelo_clasificacion(DIR_PTH_CLASIFICACION)
-  diccionario = cargar_diccionario(DIR_DICCIONARIO)
+def clasificar_objetos_detectados(objetos, dir_pth_class, dir_diccionario, cu):
+  model = cargar_modelo_clasificacion(dir_pth_class)
+  diccionario = cargar_diccionario(dir_diccionario)
   objetos_output = objetos
   for i in range(len(objetos)):
     imagenes = objetos[i]["objetos"]
