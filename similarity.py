@@ -87,7 +87,7 @@ def reducir_array_objetos_similares(array):
   return arr_result 
 
 def mostrar_imagenes_similares(image1,image2, s):
-  fig, (ax1, ax2, ax3) = plt.subplots(figsize=(15,2), ncols=3, nrows=1)
+  fig, (ax1, ax2, ax3) = plt.subplots(figsize=(14,2), ncols=3, nrows=1)
   ax1.imshow(image1)
   ax1.axis('off')    
   ax2.imshow(image2)

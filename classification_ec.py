@@ -107,7 +107,7 @@ def prediccion_por_textos(diccionario, palabras, coincidentes_unicos=False):
     palabras[j] = palabras[j].lower()
   #list_palabras = set(palabras)
   list_palabras = palabras
-  print(list_palabras)
+  #print(list_palabras)
   array_pred = [0 for i in range(len(class_names))]  
   threshold_len_words = 3
   pals_coincidentes = []
@@ -130,10 +130,10 @@ def prediccion_por_textos(diccionario, palabras, coincidentes_unicos=False):
   total_coincidentes_unicas = len(pals_coincidentes_unicas)
   if total_coincidentes > 0:
     if coincidentes_unicos:
-      print("Clasificacin CON CU")
+      #print("Clasificacin CON CU")
       array_pred = [array_pred[i]/total_coincidentes_unicas for i in range(len(array_pred))]
     else:
-      print("Clasificacin sin CU")
+      #print("Clasificacin sin CU")
       array_pred = [array_pred[i]/total_coincidentes for i in range(len(array_pred))]
   return array_pred
 
@@ -237,7 +237,7 @@ def clasificar_objetos_detectados(objetos, dir_pth_class, dir_diccionario, cu):
     objetos_output[i]["clase"] = {"prob":output, "class_idx":idx}
     
     print("PROB_CON_OCR: ",output)
-    print("IDX: ", idx)
-    print("CLASES: ",top_class )
-    print("--------------------------------------------------------")
+    #print("IDX: ", idx)
+    print("CLASES CON OCR: ",top_class )
+    print("--------------------------------------------------------------------------------------------------")
   return objetos_output
