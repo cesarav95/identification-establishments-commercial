@@ -46,6 +46,9 @@ def calcular_ubicacion_geografica_detecciones(predicciones_yolo, datos_csv):
     nuevo_punto = []
     new_x = 0
     new_y = 0
+    print("-------------------------------------------------------------------------")
+    print("ID_OBJ: ", id_obj)
+    print("-------------------------------------------------------------------------")
     for bbox in bbs:
       filename = bbox["img_path"].split('/')[-1].replace(".jpg","").replace(".png","")       
       location = utils.convertir_punto_crs(datos_csv[filename]["coordenadas"],4326,24879)        
@@ -60,30 +63,41 @@ def calcular_ubicacion_geografica_detecciones(predicciones_yolo, datos_csv):
       supe_y=bb[3]
       centro_x =(infe_x + supe_x) /2
       centro_y = (infe_y + supe_y) /2
-      print("CENTRO X:", centro_x)
+      info = ""
+      info = info + "bb = {}".format(bb)
+      infor = info + " centro bb en x = "+ centro_x
+      #print("Centro bb x: ", centro_x)
       #l = (supe_x - infe_x)/2
       #print("L = ", l)
       #hallar la distancia que vamos considerar aumentar
       #x = d - l#vamos a recorrer
-      x = abs(centro_x - d)
-      print("x = ",x)
+      x = abs(centro_x - d)      
       distancia = calcular_distancia_en_metros(x, fov, dist_a_fachada)
-      print("distancia en metros ",distancia)
+      info = info + " cant. pixeles desplazar = {}  , dist. metros desplazar = {}".format(x, distancia)
       direccion_imagen = 'der'
       if('iz-' in filename):
         direccion_imagen = 'iz'
       #saber hacia que lado de la imagen se encuentra el boundingbox (IMAGENES IZQUIERDO)
       if ( (centro_x>=d and direccion_imagen == 'iz') or(centro_x<d and direccion_imagen == 'der')):#derecha
-          print("VECTOR NORMAL")
+          info = info + " vect. unit : NO CAMBIA DIRECCION"
+          x_location_part = location[0] + distancia*vector_unit[0]
+          y_location_part = location[1] + distancia*vector_unit[1]
+          info = info + " coordenadas = ({}, {})".format(x_location_part,y_location_part)
           new_x = new_x + (location[0] + distancia*vector_unit[0])
           new_y = new_y + (location[1] + distancia*vector_unit[1])
       else:          #izquierda
-          print("CAMBIAR DE DIRECCION")
+          info = info + " vect. unit. : CAMBIA DIRECCION"
+          x_location_part = location[0] + distancia*vector_unit[0]
+          y_location_part = location[1] + distancia*vector_unit[1]
+          info = info + " coordenadas = ({}, {})".format(x_location_part,y_location_part)
           new_x = new_x + (location[0] - distancia*vector_unit[0])
           new_y = new_y + (location[1] - distancia*vector_unit[1])      
     new_x = new_x / len(bbs)
     new_y = new_y / len(bbs)
     nuevo_punto = utils.convertir_punto_crs([new_x,new_y],24879,4326)
+    print(info)
+    print("Final location : {}".format(nuevo_punto))
+    print()
     coordenadas_detecciones.append({"id_obj":id_obj, "location": nuevo_punto,"clase": clase, "crops": crops, "img_bbs":bbs, "direccion":direccion_imagen})
   return coordenadas_detecciones
 
