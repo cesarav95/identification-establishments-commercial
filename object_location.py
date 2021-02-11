@@ -55,7 +55,7 @@ def calcular_ubicacion_geografica_detecciones(predicciones_yolo, datos_csv):
       vector_unit = datos_csv[filename]["vector_unit"]
       dist_a_fachada = datos_csv[filename]["dist_a_fachada"]
       fov = datos_csv[filename]["fov"]
-      print(filename) 
+      print("nombre imagen : ",filename) 
       bb = bbox["bb"][:4]
       infe_x=bb[0]
       infe_y=bb[1]
@@ -65,7 +65,7 @@ def calcular_ubicacion_geografica_detecciones(predicciones_yolo, datos_csv):
       centro_y = (infe_y + supe_y) /2
       info = ""
       info = info + "bb = {}".format(bb)
-      infor = info + " centro bb en x = "+ centro_x
+      info = info + " centro bb en x = {}".format(centro_x)
       #print("Centro bb x: ", centro_x)
       #l = (supe_x - infe_x)/2
       #print("L = ", l)
