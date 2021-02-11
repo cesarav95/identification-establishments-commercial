@@ -1,5 +1,5 @@
 classes = 1
 train  = dataset/train.txt
 valid  = dataset/test.txt
-names = /content/drive/MyDrive/identification-of-establishments-commercial/config/obj.names
+names = /content/identification-of-establishments-commercial/config/obj.names
 backup = backup/
