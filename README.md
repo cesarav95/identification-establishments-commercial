@@ -15,17 +15,19 @@ Se utilizo el sistema de información geográfico **QGIS** para el procesamiento
 
 * Para descargar imágenes primeramente se necesita los datos de OSM los cuales pueden ser descargados desde su página principal ("[OpenStreetMap"](http://openstreetmap.org)"). Al descargar el archivo **".osm"** se hace la importación de las capas de "lines" y "multipolygos" en QGIS. Estas dos capas contienen información de calles y edificios del mapa de OSM. Un ejemplo de este archivo de encuentra en la carpeta "[qgis/input.osm](https://github.com/cesarav95/identification-of-establishments-commercial/blob/main/qgis/input.osm)" 
 * En el archivo [download_images_gsv.py](https://github.com/cesarav95/identification-of-establishments-commercial/blob/main/qgis/download_images_gsv.py)" se asigna como entrada a las variables `nombre_capa_lines` y `nombre_capa_polygons` con los nombres de las capas "lines" y "multipoligons" respectivamente que adquieren al importar el archivo osm; luego se elige el **osm_id** de calle que se desea descargar las imágenes (otra opcion es definiar una ruta personalizada en una nueva capa vectorial) indicado en el parámetro `osm_id_ruta`. 
-* Al correr el código en QGIS (desde el editor de código de QGIS) se genera una carpeta por defecto de salida llamada `output` definido en parámetro `nombre_carpeta_salida`. En este carpeta se guardan las imágenes descargas y un archivo **CSV** con los metadatos de cada imagen como: su ubicación geográfica, parámetros fov , heading, vector unitario del segmento de línea de la calle y la url del API generado para la descarga.
+* Al correr el código en QGIS (desde el editor de código de QGIS) se genera una carpeta por defecto de salida llamada `output` definido en parámetro `nombre_carpeta_salida`. En este carpeta se guardan las imágenes descargas y un archivo **CSV** con los metadatos de cada imagen como: su ubicación geográfica, parámetros fov , heading, vector unitario del segmento de línea de la calle y la url del API generado para la descarga. Estas imagenes seran empleadas tanto para el training de nuestros modelos como para el testing de todo el proyecto.
 
 ## Detección
 Para la detección de establecimientos comerciales hicimos uso de YOLOV4, la cual fue entrenada con imagenes obtenidas por el API de GSV que consta de 3000 iteraciones, con una unica clase denominada "establecimiento comercial" (para conocer nuestro codigo de entrenamiento, dirigirse al siguiente cuaderno de colab[![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/drive/1Qwj6N8Zh4ExD2mi6BOvqPmhTAdrb8kp7?usp=sharing)). Estos elementos detectados son denominados objetos que pasarán a ser clasificados en 8 categorias de acuerdo a sus caracteristicas.
 
-![pred_yolov4](/assets/example_yolov4_pred.png)
+![pred_yolov4](/assets/dataset-collage-final.png)
 
 Nota: Existen casos de duplicidad de objetos en calles de circunvalación y para evitar tener datos repetidos, se consideró la función "distancia coseno" que permite conocer cuan similares son los objetos consecutivos, tomando asi solo un objeto y el promedio de las coordenadas de los objetos repetidos.
 ## Clasificación
 Para la fase de clasificación, se dividió en dos fases: 
-- **Clasificación VGG16:** Se entrenaron con 8 clases de establecimientos comerciales que son : boticas y farmacias, lugares de comida y bebida, lugares de estetica y cuidado, otros, sin negocios, tiendas de materiales de construccion, tiendas de productos de primera necesidad y tiendas de vestir. Haciendo uso de técnicas de "Data Augmentation" y "Transfern Learning" se lograron obtener resultados considerables.
+- **Clasificación VGG16:** Se entrenaron con 8 clases de establecimientos comerciales que son : boticas y farmacias, lugares de comida y bebida, lugares de estetica y cuidado, otros, sin negocios, tiendas de materiales de construccion, tiendas de productos de primera necesidad y tiendas de vestir. Haciendo uso de técnicas de "Data Augmentation" y "Transfern Learning" se lograron obtener resultados considerables con 50 epocas de entrenamiento. A continuación se muestra el dataset de entrenamiento.
+![train_vgg16](/assets/.png)
+
 Para poder ver nuestro codigo de entrenamiento, abrir el cuaderno en colab.
 [![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/drive/1wBsW5cW34RjFDJWH7wqeClVHjMsiLAvu?usp=sharing)
 - **Clasificación atravez de textos en imagenes naturales:**
