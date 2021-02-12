@@ -26,7 +26,7 @@ Nota: Existen casos de duplicidad de objetos en calles de circunvalación y para
 ## Clasificación
 Para la fase de clasificación, se dividió en dos fases: 
 - **Clasificación VGG16:** Se entrenaron con 8 clases de establecimientos comerciales que son : boticas y farmacias, lugares de comida y bebida, lugares de estetica y cuidado, otros, sin negocios, tiendas de materiales de construccion, tiendas de productos de primera necesidad y tiendas de vestir. Haciendo uso de técnicas de "Data Augmentation" y "Transfern Learning" se lograron obtener resultados considerables con 50 epocas de entrenamiento. A continuación se muestra el dataset de entrenamiento.
-![train_vgg16](/assets/dataset-collage-final.png.png)
+![train_vgg16](/assets/dataset-collage-final.png)
 
 Para poder ver nuestro codigo de entrenamiento, abrir el cuaderno en colab.
 [![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/drive/1wBsW5cW34RjFDJWH7wqeClVHjMsiLAvu?usp=sharing)
