@@ -16,7 +16,7 @@ A continuación, se describe el uso del código implementado:
 4. [Testing](#Testing)
 
 ## Geo-processing in QGIS
-Se utilizo el sistema de información geográfico QGIS para el procesamiento de datos de OpenStreetMap y la descarga de imágenes de GSV. El código se encuentra en el archivo "[download_images_gsv.py](https://google.com.pe)", este archivo debe ser ejecutado el QGIS de la siguiente manera:
+Se utilizo el sistema de información geográfico QGIS para el procesamiento de datos de OpenStreetMap y la descarga de imágenes de GSV. El código se encuentra en el archivo "[download_images_gsv.py](https://google.com.pe)", este archivo debe ser ejecutado en QGIS de la siguiente manera:
 
 * Para descargar imágenes primeramente se necesita los datos de OSM los cuales pueden ser descargados desde su página principal ("[OpenStreetMap"]()"). Al descargar el archivo ".osm" se importa a QGIS la capas de "lines" y "multipolygos". Estas dos capas contienen información de calles y edificios del mapa de OSM. Un ejemplo de este archivo de encuentra en la carpeta "[qgis/osm_file/example.osm]()" 
 * En [download_images_gsv.py](https://google.com.pe)" se configura como entrada las capas "lines" "multipoligons" en los parametros `nombre_capa_lines` y `nombre_capa_polygons` respectivamente, luego se elige el osm_id de calle que se desea descargar las imágenes (otra opcion es definiar una ruta personalizado en una nueva capa vectorial) indicado en el parámetro `osm_id_calle`. 
