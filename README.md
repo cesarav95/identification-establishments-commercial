@@ -7,7 +7,7 @@ El proyecto consiste en detectar establecimientos comerciales analizando imágen
 Este proyecto hace use de YOLOv4 para la detección de establecimientos comerciales, el cual se encuentra implementado en “[Darknet](https://github.com/AlexeyAB/darknet)” , donde los objetos detectados son datos de entrada a una red de clasificacoón VGG16 y a la vez a un detector de textos en imagenes naturales (textos verticales y horizontales).
 
 A continuación, se describe el código implementado:
-1. [Geo-procesamiento en QGIS](#Geo-processing en QGIS).
+1. [Geo-procesamiento en QGIS](#Geo-processing).
 2. [Detección](#Detección).
 3. [Clasificación ](#Clasificación).
 4. [Testing](#Testing).
