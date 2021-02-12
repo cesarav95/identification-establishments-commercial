@@ -42,6 +42,4 @@ Para poder ver nuestro codigo de implementación, abrir el siguiente cuaderno en
 Al finalizar el codigo genera un archivo **JSON**, que contiene la información de los objetos unicos como: valores del bounding boxes, path, clasificiación y ubicacion geografica.
 Las pruebas se hicieron dentro de la ciudad del Cusco-Perú en diferentes zonas urbanas y se obtuvieron los siguientes resultados.
 
-![pred_yolov4](/assets/tabla_top1.png)
-![pred_yolov4](/assets/tabla_top3.png)
-![pred_yolov4](/assets/tabla_top5.png)
+![pred_yolov4](/assets/tabla_tops.png)
