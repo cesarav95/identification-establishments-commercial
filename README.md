@@ -37,9 +37,6 @@ Para mejorar la clasificación tambien se consideró los textos de los letreros 
 ![qgis](/assets/craft-negocio.png)
 ![qgis](/assets/ocr-horizontal-vertical.png)
 Por último promediando ambas predicciones se llega a un valor determinado que nos indica a que tipo de negocio pertenecen. Se toma considera las probablidades del **TOP-1**, **TOP-3** y **TOP-5**.
-Para poder ver nuestro codigo de implementación, abrir el siguiente cuaderno en colab.
-[![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/drive/1JaeBU1IwkXKgi0cJCzJcy4El6NQwqZbV?usp=sharing)
-
 
 ## Testing
 Al finalizar el codigo genera un archivo **JSON** (ejemplos de archivo estan en [/test](https://github.com/cesarav95/identification-of-establishments-commercial/tree/main/test) ), que contiene la información de los objetos unicos como: valores del bounding boxes, path, clasificiación y ubicacion geografica.
