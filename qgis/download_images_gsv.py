@@ -27,14 +27,12 @@ import time
 URL_BASE_IMAGE = "https://maps.googleapis.com/maps/api/streetview"
 URL_BASE_METADATA = "https://maps.googleapis.com/maps/api/streetview/metadata"
 API_KEY = "YOUR API KEY"
-nombre_carpeta_salida = "C:/Users/Cesar/Documents/data_test_gsv/output"
+nombre_carpeta_salida = "output" # Directorio de salida de las imagenes
 usar_heading = True
 #MAPA OSM
 nombre_capa_lines = "input lines"
 nombre_capa_polygons = "input multipolygons"
-nombre_capa_points = ""
 osm_id_ruta="4821015"
-nombre_capa_ruta_personalizada=nombre_capa_lines
 # - CAPAS 
 nombre_capa_centro = 'center_points_layer'
 fields_capa_centro = ['x', 'y', 'type', 'panoid_filename']

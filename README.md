@@ -9,6 +9,7 @@ A continuación, se describe el código implementado:
 2. [Detección](#Detección).
 3. [Clasificación ](#Clasificación).
 4. [Testing](#Testing).
+5. [Implementación en Google Colab](#Implementación-Google-Colab).
 
 ## Geo-processing en QGIS
 Se utilizo el sistema de información geográfico **QGIS** para el procesamiento de datos de OpenStreetMap y la descarga de imágenes de GSV. El código se encuentra en el archivo "[download_images_gsv.py](https://github.com/cesarav95/identification-of-establishments-commercial/blob/main/qgis/download_images_gsv.py)"; este archivo debe ser ejecutado en QGIS de la siguiente manera:
@@ -41,7 +42,15 @@ Para poder ver nuestro codigo de implementación, abrir el siguiente cuaderno en
 
 
 ## Testing
-Al finalizar el codigo genera un archivo **JSON**, que contiene la información de los objetos unicos como: valores del bounding boxes, path, clasificiación y ubicacion geografica.
+Al finalizar el codigo genera un archivo **JSON** (ejemplos de archivo estan en [/test](https://github.com/cesarav95/identification-of-establishments-commercial/tree/main/test) ), que contiene la información de los objetos unicos como: valores del bounding boxes, path, clasificiación y ubicacion geografica.
+
 Las pruebas se hicieron dentro de la ciudad del Cusco-Perú en 12 diferentes zonas urbanas y se obtuvieron los siguientes resultados.
 
 ![pred_yolov4](/assets/tabla_tops.png)
+
+La siguiente imagen muestra una de las rutas consideradas para el testing.
+![testing](/assets/example_test.png)
+
+## Implementación en Google Colab
+Para poder ver un demo de nuestro codigo, abrir el siguiente cuaderno en colab.
+[![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/drive/1JaeBU1IwkXKgi0cJCzJcy4El6NQwqZbV?usp=sharing)

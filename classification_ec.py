@@ -17,6 +17,8 @@ import torch.nn.functional as F
 import math
 import similarity
 import utils
+import craft_test as craft
+import atten_ocr_test as ocr
 
 #PARAMETROS
 #DIR_PTH_CLASIFICACION = "vgg16_bn_ec.pth"
@@ -24,6 +26,8 @@ class_names =  ['boticas y farmacias', 'lugares de comida y bebida', 'lugares de
 class_to_idx = {'boticas y farmacias': 0, 'lugares de comida y bebida': 1, 'lugares de estetica y cuidado': 2, 'otros': 3, 'sin negocios': 4, 'tiendas de materiales de construccion': 5, 'tiendas de productos de primera necesidad': 6, 'tiendas de vestir': 7}
 idx_to_class = { v : k for k,v in class_to_idx.items()}
 #DIR_DICCIONARIO = "diccionario_ec.txt"
+DIR_PB_ATTEN_OCR = '/content/identification-of-establishments-commercial/text_recognition_5435.pb'
+DIR_PTH_CRAFT = '/content/identification-of-establishments-commercial/craft_mlt_25k.pth'
 
 def cargar_modelo_clasificacion(dir_pth):
   print("Cargando modelo clasificacion...")
@@ -240,4 +244,26 @@ def clasificar_objetos_detectados(objetos, dir_pth_class, dir_diccionario, cu):
     #print("IDX: ", idx)
     print("CLASES CON OCR: ",top_class )
     print("--------------------------------------------------------------------------------------------------")
+  return objetos_output
+
+def mostrar_letreros(img, pred):
+  fig, (ax1) = plt.subplots(figsize=(4,6), ncols=1, nrows=1)    
+  ax1.imshow(img)
+  ax1.axis('off') 
+  ax1.set_title(pred)
+
+def analizar_texto_objetos(objetos):
+  array_imgs_crop_text = craft.test_craft(objetos, dir_pth= DIR_PTH_CRAFT)
+  return array_imgs_crop_text
+
+def obtener_textos_objetos(objetos):
+  letreros = analizar_texto_objetos(objetos)
+  objetos_output = objetos
+  for i in range(len(objetos)):
+    id_obj = objetos[i]["id_obj"]
+    textos = ocr.test_ocr(letreros[id_obj], dir_pb= DIR_PB_ATTEN_OCR)
+    objetos_output[i]["textos_ocr"] = textos
+    info = ""
+    info = info + "ID OBJETO : {} , Textos : {}".format(id_obj, textos)
+    print(info)
   return objetos_output

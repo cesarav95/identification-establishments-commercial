@@ -98,7 +98,7 @@ def eliminar_bb_contenidos(detecciones):
   return resultados
 
 #Funcion para detectar establecimientos comerciales (solo funciona en Google Colab)
-def detectar_establecimientos_yolov4(img_list):
+def detectar_establecimientos_yolov4(img_list, path_output):
   if os.path.exists("results.json"):
     os.remove("results.json")
   #detectar establecimientos
