@@ -33,7 +33,7 @@ Para poder ver nuestro codigo de entrenamiento, abrir el cuaderno en colab.
 - **Clasificación atravez de textos en imagenes naturales:**
 Para mejorar la clasificación tambien se consideró los textos de los letreros en los negocios, debido a que contienen información del tipo de negocio, para ello se utilizarón las implementaciones de ("[**CRAFT: Character-Region Awareness For Text detection**"](https://github.com/clovaai/CRAFT-pytorch#craft-character-region-awareness-for-text-detection)") y ("[**AttentionOCR for Arbitrary-Shaped Scene Text Recognition**"](https://github.com/zhang0jhon/AttentionOCR)"), considerando lo mas destacable de cada proyecto en una sola implementación para nuestro objetivo. Existen casos donde los textos son cortados o dificiles de detectar, es por ello que se tomo en cuenta la función **Levenshtein** que nos ayuda a conocer si la palabra detectada existe en un determinado porcentaje (80%) de similaridad con respecto a las palabras de nuestro diccionario en español. Dicho diccionario cuenta con palabras clave pertenecientes a una determinada clase.
 
-Por último promediando ambas predicciones se llega a un valor determinado que nos indica a que tipo de negocio pertenecen. Se toma considera las probablidades del TOP-1, TOP-3 Y TOP-5.
+Por último promediando ambas predicciones se llega a un valor determinado que nos indica a que tipo de negocio pertenecen. Se toma considera las probablidades del **TOP-1**, **TOP-3** y **TOP-5**.
 Para poder ver nuestro codigo de implementación, abrir el siguiente cuaderno en colab.
 [![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/drive/1JaeBU1IwkXKgi0cJCzJcy4El6NQwqZbV?usp=sharing)
 
