@@ -43,6 +43,12 @@ Al finalizar el codigo genera un archivo **JSON** (ejemplos de archivo estan en 
 
 Las pruebas se hicieron dentro de la ciudad del Cusco-Perú en 12 diferentes zonas urbanas y se obtuvieron los siguientes resultados.
 
+En Detección:
+
+![pred_yolov4](/assets/tabla_test_deteccion.png)
+
+En Clasificación:
+
 ![pred_yolov4](/assets/tabla_tops.png)
 
 La siguiente imagen muestra una de las rutas consideradas para el testing.
