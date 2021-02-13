@@ -39,7 +39,7 @@ Para mejorar la clasificación tambien se consideró los textos de los letreros 
 Por último promediando ambas predicciones se llega a un valor determinado que nos indica a que tipo de negocio pertenecen. Se toma considera las probablidades del **TOP-1**, **TOP-3** y **TOP-5**.
 
 ## Testing
-Al finalizar el codigo genera un archivo **JSON** (ejemplos de archivo estan en [/test](https://github.com/cesarav95/identification-of-establishments-commercial/tree/main/test) ), que contiene la información de los objetos unicos como: valores del bounding boxes, path, clasificiación y ubicacion geografica.
+Al finalizar el codigo genera un archivo **JSON** (ejemplos de archivo estan en [/test](https://github.com/cesarav95/identification-of-establishments-commercial/tree/main/test) ), que contiene la información de los objetos unicos como: valores del bounding boxes, path, clasificiación y ubicación geográfica.
 
 Las pruebas se hicieron dentro de la ciudad del Cusco-Perú en 12 diferentes zonas urbanas y se obtuvieron los siguientes resultados.
 
