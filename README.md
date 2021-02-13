@@ -9,7 +9,7 @@ A continuación, se describe el código implementado:
 2. [Detección](#Detección).
 3. [Clasificación ](#Clasificación).
 4. [Testing](#Testing).
-5. [Implementación en Google Colab](#Implementación-Google-Colab).
+5. [Implementación en Google Colab](#implementación-en-google-colab).
 
 ## Geo-processing en QGIS
 Se utilizo el sistema de información geográfico **QGIS** para el procesamiento de datos de OpenStreetMap y la descarga de imágenes de GSV. El código se encuentra en el archivo "[download_images_gsv.py](https://github.com/cesarav95/identification-of-establishments-commercial/blob/main/qgis/download_images_gsv.py)"; este archivo debe ser ejecutado en QGIS de la siguiente manera:
