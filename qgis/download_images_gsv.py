@@ -3,7 +3,7 @@ import math
 import os
 import urllib
 import json
-from PIL import Image
+#from PIL import Image
 import csv
 import os.path
 #WEB DRIVER
@@ -26,7 +26,7 @@ import time
 #URL_BASE_IMAGEN_GSV = "https://www.google.com/maps/@?api=1&map_action=pano&"
 URL_BASE_IMAGE = "https://maps.googleapis.com/maps/api/streetview"
 URL_BASE_METADATA = "https://maps.googleapis.com/maps/api/streetview/metadata"
-API_KEY = "YOUR API KEY"
+API_KEY = "YOUR_API_KEY"
 nombre_carpeta_salida = "output" # Directorio de salida de las imagenes
 usar_heading = True
 #MAPA OSM
@@ -47,7 +47,7 @@ types_fields_capa_der_iz = ['String', 'String','Int', 'String','Double', 'Double
 #types_fields_capa_metadatos = ['String', 'String', 'String','Double', 'Double','Double','Double', 'Double']
 # - PARAMETROS DE CALCULO PARA LOS PUNTOS DE REFERENCIA
 dist_entre_puntos = 2
-dist_inicial_a_fachada = 2
+dist_inicial_a_fachada = 1.5
 step = 1
 max_dist_a_fachada = 12#20
 dist_sin_fachada= 5
@@ -60,7 +60,7 @@ dist_min_fov = 5
 dist_max_fov = 8
 usar_dist_prom_fov = True
 #GRID
-tam_celda = 80
+tam_celda = 80 # celda cuadra de 80m x 80m
 
 # funcion para recuperar una capa por su nombre
 def obtener_capa_por_nombre(nombre):
@@ -139,24 +139,9 @@ def calcular_punto_a_distancia(pinicial, distancia, v_unit):
 #Calculo de heading
 def calcular_heading(punto_inicial, punto_final):
 
-    #===============================================================
-    punto_inicial = convertir_punto_de_4326_a_24879(punto_inicial)  
-    punto_final = convertir_punto_de_4326_a_24879(punto_final)  
-    teta1 = math.radians(punto_inicial.y())
-    teta2 = math.radians(punto_final.y())
-    delta1 = math.radians(punto_final.y()-punto_inicial.y())
-    delta2 = math.radians(punto_final.x()-punto_inicial.x())
-    y = math.sin(delta2) * math.cos(teta2)
-    x = math.cos(teta1)*math.sin(teta2) - math.sin(teta1)*math.cos(teta2)*math.cos(delta2)
-    brng = math.atan2(y,x)
-    brng = math.degrees(brng)
-    return brng
-    #===============================================================
-
-
-    #heading_value = math.atan2(punto_final.x() - punto_inicial.x(), punto_final.y() - punto_inicial.y())
-    #heading_value = math.degrees(heading_value)
-    #return heading_value
+    heading_value = math.atan2(punto_final.x() - punto_inicial.x(), punto_final.y() - punto_inicial.y())
+    heading_value = math.degrees(heading_value)
+    return heading_value
 def calcular_fov(distancia_prom):
     if(distancia_prom<=8):
         return (distancia_prom-5)*(-50/3)+90
@@ -171,8 +156,8 @@ def ajustar_parametros(array_puntos, distancia_prom, v_unit, direccion):
         if(arr[2] == 0 or usar_dist_prom_fov):# SI no existe poligono (fachada) o usar distancia promedio
             punto_lat_lon = QgsPointXY(arr[0],arr[1])
             punto = convertir_punto_de_4326_a_24879(punto_lat_lon)            
-            new_point_x = punto.x() + direccion*v_unit.x()*(distancia_prom - arr[4])
-            new_point_y = punto.y() + direccion*v_unit.y()*(distancia_prom - arr[4])
+            new_point_x = punto.x() + direccion*v_unit.x()*(abs(distancia_prom - arr[4]))
+            new_point_y = punto.y() + direccion*v_unit.y()*(abs(distancia_prom - arr[4]))
             array_puntos[i][4] = distancia_prom
             punto = QgsPointXY(new_point_x,new_point_y)
             new_fov = calcular_fov(distancia_prom)
@@ -181,6 +166,7 @@ def ajustar_parametros(array_puntos, distancia_prom, v_unit, direccion):
             array_puntos[i][1] = punto_lat_lon.y()
             array_puntos[i][6] = new_fov
     return array_puntos
+
 def guardar_puntos_capa(capa,datos_puntos):
     for arr in datos_puntos:
         punto = QgsPointXY(arr[0],arr[1])
@@ -206,6 +192,7 @@ def calcular_indice_grid(lim_min, punto):
     indice_x = int(dist_x / tam_celda)
     return indice_x, indice_y 
 
+# Funcion que determina el punto sobre la fachada (lado der o iz) para un punto equidistante.
 def calcular_punto_cercano_a_fachada(lista_poligonos,punto_central,grid,v_unit, lim_inf_map,osm_id_calle, direccion):
     #Veficar si existen poligonos en el mapa
     if(len(lista_poligonos)> 0):
@@ -263,7 +250,7 @@ def calcular_punto_cercano_a_fachada(lista_poligonos,punto_central,grid,v_unit, 
 
     return punto_ref, distancia_a_poligono,existe_poligono_cercano
 
-#Funcion para calcular puntos de referencia de las calles
+#Funcion para calcular puntos der e iz de las calles
 def calcular_puntos_referencia(lista_poligonos,capa_derecha, capa_izquierda, punto_central,v_unit,grid,lim_inf_map,osm_id_calle, v_unit_calle):
     datos_der = []
     datos_iz = []
@@ -578,7 +565,7 @@ def descargar_imagen(osm_id, file_name,panoids,metadata,csvfilename,img_filename
         #if metadata['pano_id'] not in panoids:
         #print('DESCARGANDO IMAGEN')
         urllib.request.urlretrieve(image_url, img_filename)
-        img_pil = Image.open(img_filename)            
+        #img_pil = Image.open(img_filename)            
         #panoids.append(metadata['pano_id'])
         print('Downloaded: ',img_filename)
         datos = [file_name,lat_fachada,lon_fachada, metadata['date'],osm_id,v_unit.x(),v_unit.y(),dist_a_fachada,fov,heading_value,image_url ]
@@ -683,6 +670,9 @@ def verificar_punto_referencia_metadato(metadata,punto_i, punto_f, punto_central
                 new_ref_y =  new_c_y + orientacion*dist_a_fachada*b    
                 punto_proyectado_lat_lon = convertir_punto_de_24879_a_4326(QgsPointXY(new_ref_x, new_ref_y))       
                 agregar_feature_capa(capa_proy,QgsGeometry.fromPointXY(punto_proyectado_lat_lon) ,[]) 
+                # AGREGAR PUNTO CENTRAL PROYECTADO
+                punto_central_proyectado_lat_lon = convertir_punto_de_24879_a_4326(QgsPointXY(new_c_x, new_c_y))       
+                agregar_feature_capa(capa_proy,QgsGeometry.fromPointXY(punto_central_proyectado_lat_lon) ,[]) 
 
                 return punto_proyectado_lat_lon 
         else:
