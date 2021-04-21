@@ -137,50 +137,53 @@ def agrupar_objetos_similares(predicciones_yolo,metadatos, dir_pth_sim,tipoconsu
   #cargar modelo
   modelo_sim =  cargar_modelo_similaridad(dir_pth_sim)
   array_objetos = []
-  for i in range(len(predicciones_con_objetos) - 1):
-    # Recuperar bbs
-    path_img1 = predicciones_con_objetos[i]["img_path"]
-    bbs1 = predicciones_con_objetos[i]["bounding_boxes"]
-    path_img2 = predicciones_con_objetos[i+1]["img_path"]
-    bbs2 = predicciones_con_objetos[i+1]["bounding_boxes"]
-    #verificar si son imagenes del mismo lado
-    filename1 = path_img1.split('/')[-1].replace('.jpg','').replace('.png','')
-    filename2 = path_img2.split('/')[-1].replace('.jpg','').replace('.png','')
-    dir_img1 = 'iz'
-    dir_img2 = 'iz'
-    if 'der-' in filename1:
-      dir_img1 = 'der'
-    if 'der-' in filename2:
-      dir_img2 = 'der'    
-    #calcular distancia entre las ubicaciones geograficas de las imagenes a comparar
-    location1 = utils.convertir_punto_crs(metadatos[filename1]["coordenadas"],4326,24879) 
-    location2 = utils.convertir_punto_crs(metadatos[filename2]["coordenadas"],4326,24879)  
-    distancia_imgs =  utils.calcular_distancia_puntos(location1, location2)  
-    #Comparar detecctiones de las dos imagenes
-    for index1, bb1 in enumerate(bbs1):
-      img_crop1 = utils.recuperar_crop_imagen_bb(path_img1,bb1)
-      id_obj1 = "{}-{}".format(i,index1)# formar un id con el indeice de la imagen y de su bb
-      objeto = []
-      objeto.append(id_obj1)
-      for index2, bb2 in enumerate(bbs2):        
-        img_crop2 = utils.recuperar_crop_imagen_bb(path_img2,bb2)
-        id_obj2 = "{}-{}".format(str(i+1),index2)# formar un id con el indeice de la imagen y de su bb
-        #print("id object 2 :",id_obj2)
-        if dir_img1 == dir_img2:
-          similaridad = calcular_similitud_imagenes(img_crop1, img_crop2, modelo_sim)
-          if similaridad >= THRESH_SIMILARIDAD and distancia_imgs <= THRESH_DIST_ENTRE_IMGS:
-            print("Similaridad entre {} y {} en {}  con distancia {} metros%".format(path_img1,path_img2,similaridad*100,distancia_imgs ))
-            objeto.append(id_obj2)
-            mostrar_imagenes_similares(img_crop1, img_crop2, similaridad)
-          else:
-            if similaridad >= THRESH_SIMILARIDAD:
+  if len(predicciones_con_objetos) > 1 :
+    for i in range(len(predicciones_con_objetos) - 1):
+      # Recuperar bbs
+      path_img1 = predicciones_con_objetos[i]["img_path"]
+      bbs1 = predicciones_con_objetos[i]["bounding_boxes"]
+      path_img2 = predicciones_con_objetos[i+1]["img_path"]
+      bbs2 = predicciones_con_objetos[i+1]["bounding_boxes"]
+      #verificar si son imagenes del mismo lado
+      filename1 = path_img1.split('/')[-1].replace('.jpg','').replace('.png','')
+      filename2 = path_img2.split('/')[-1].replace('.jpg','').replace('.png','')
+      dir_img1 = 'iz'
+      dir_img2 = 'iz'
+      if 'der-' in filename1:
+        dir_img1 = 'der'
+      if 'der-' in filename2:
+        dir_img2 = 'der'    
+      #calcular distancia entre las ubicaciones geograficas de las imagenes a comparar
+      location1 = utils.convertir_punto_crs(metadatos[filename1]["coordenadas"],4326,24879) 
+      location2 = utils.convertir_punto_crs(metadatos[filename2]["coordenadas"],4326,24879)  
+      distancia_imgs =  utils.calcular_distancia_puntos(location1, location2)  
+      #Comparar detecctiones de las dos imagenes
+      for index1, bb1 in enumerate(bbs1):
+        img_crop1 = utils.recuperar_crop_imagen_bb(path_img1,bb1)
+        id_obj1 = "{}-{}".format(i,index1)# formar un id con el indeice de la imagen y de su bb
+        objeto = []
+        objeto.append(id_obj1)
+        for index2, bb2 in enumerate(bbs2):        
+          img_crop2 = utils.recuperar_crop_imagen_bb(path_img2,bb2)
+          id_obj2 = "{}-{}".format(str(i+1),index2)# formar un id con el indeice de la imagen y de su bb
+          #print("id object 2 :",id_obj2)
+          if dir_img1 == dir_img2:
+            similaridad = calcular_similitud_imagenes(img_crop1, img_crop2, modelo_sim)
+            if similaridad >= THRESH_SIMILARIDAD and distancia_imgs <= THRESH_DIST_ENTRE_IMGS:
+              print("Similaridad entre {} y {} en {}  con distancia {} metros%".format(path_img1,path_img2,similaridad*100,distancia_imgs ))
+              objeto.append(id_obj2)
               mostrar_imagenes_similares(img_crop1, img_crop2, similaridad)
-              print("Similaridad NO entre {} y {} en {}  con distancia {} metros%".format(path_img1,path_img2,similaridad*100,distancia_imgs ))
-                      
-        if i == (len(predicciones_con_objetos) - 2): #Guardar los objetos detectados de la ultima imagen
-          #print("ultimo index: ",i)
-          array_objetos.append([id_obj2])
-      array_objetos.append(objeto)
+            else:
+              if similaridad >= THRESH_SIMILARIDAD:
+                mostrar_imagenes_similares(img_crop1, img_crop2, similaridad)
+                print("Similaridad NO entre {} y {} en {}  con distancia {} metros%".format(path_img1,path_img2,similaridad*100,distancia_imgs ))
+                        
+          if i == (len(predicciones_con_objetos) - 2): #Guardar los objetos detectados de la ultima imagen
+            #print("ultimo index: ",i)
+            array_objetos.append([id_obj2])
+        array_objetos.append(objeto)
+  else:
+    array_objetos.append(['0-0'])
   #Enlazar objetos similares de la secuencia de imagenes
   array_similares = reducir_array_objetos_similares(array_objetos)
   #print(array_similares)
